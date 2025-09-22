@@ -306,7 +306,7 @@
                             
                             <div class="relative z-10 flex items-start space-x-2">
                                 <div class="flex-1">
-                                    <p class="text-base font-medium leading-relaxed mb-1">🙏 வணக்கம்! நான் உங்கள் தமிழ் AI உதவியாளர். தமிழ் மொழியின் அழகை சேர்ந்து கற்போம்! ✨🏛️</p>
+                                    <p class="text-base font-medium leading-relaxed mb-1">வணக்கம்! நான் உங்கள் தமிழ் AI உதவியாளர். தமிழ் மொழியின் அழகை சேர்ந்து கற்போம்!</p>
                                     <div class="flex items-center justify-between">
                                         <p class="text-xs font-semibold text-orange-600">🕐 காலை 10:30</p>
                                     </div>
@@ -346,7 +346,7 @@
                             
                             <div class="relative z-10 flex items-start space-x-2">
                                 <div class="flex-1">
-                                    <p class="text-base font-medium leading-relaxed mb-1">🌟 அருமையான கேள்வி! தமிழின் செழுமையான வரலாறு பற்றி பேசலாம்! 🏛️✨</p>
+                                    <p class="text-base font-medium leading-relaxed mb-1">அருமையான கேள்வி! தமிழின் செழுமையான வரலாறு பற்றி பேசலாம்! </p>
                                     <div class="flex items-center justify-between">
                                         <p class="text-xs font-semibold text-orange-600">🕐 காலை 10:32</p>
                                     </div>
@@ -362,9 +362,6 @@
                 <!-- Input Area -->
                 <div class="p-3 bg-white/95 backdrop-blur-xl border-t border-orange-200/50 relative z-10 mobile-input-area">
                     <div class="flex space-x-2 items-end max-w-full mx-auto">
-                        <button class="p-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 group" title="கோப்பு பதிவேற்று">
-                            <i class="fas fa-upload h-4 w-4 group-hover:animate-bounce"></i>
-                        </button>
 
                         <button id="voiceBtn" onclick="toggleVoiceRecording()" class="p-2 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 group bg-gradient-to-r from-green-500 to-emerald-500 text-white hover:from-green-600 hover:to-emerald-600" title="ஒலி பதிவு செய்">
                             <i class="fas fa-microphone h-4 w-4 group-hover:animate-pulse"></i>
@@ -543,6 +540,30 @@
                     
                     addMessage(errorMessage, 'bot');
                 }
+            }
+        }
+        
+        // Handle file selection
+        function handleFileSelect(files) {
+            if (files.length > 0) {
+                const file = files[0];
+                uploadAndProcessFile(file);
+            }
+        }
+
+        // Upload and process file
+        async function uploadAndProcessFile(file) {
+            addMessage(`'${file.name}' கோப்பை பதிவேற்றுகிறது மற்றும் செயல்படுத்துகிறது...`, 'user');
+            showTypingIndicator();
+
+            try {
+                const summary = await handleFileUpload(file);
+                hideTypingIndicator();
+                addMessage(summary, 'bot');
+            } catch (error) {
+                hideTypingIndicator();
+                console.error('File processing error:', error);
+                addMessage('கோப்பை செயல்படுத்துவதில் பிழை ஏற்பட்டது. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.', 'bot');
             }
         }
         
