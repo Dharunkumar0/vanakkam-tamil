@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>வணக்கம் - தமிழ் AI உதவியாளர்</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-15px) rotate(3deg); }
+            66% { transform: translateY(-25px) rotate(-3deg); }
+        }
+        @keyframes bounce-slow {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-15px) scale(1.05); }
+        }
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes slide-in {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0px) scale(1); }
+        }
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+        @keyframes rotate-float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(5deg); }
+            50% { transform: translateY(-5px) rotate(0deg); }
+            75% { transform: translateY(-15px) rotate(-5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .animate-float { animation: float 8s ease-in-out infinite; }
+        .animate-bounce-slow { animation: bounce-slow 4s ease-in-out infinite; }
+        .animate-spin-slow { animation: spin-slow 30s linear infinite; }
+        .animate-slide-in { animation: slide-in 0.6s ease-out; }
+        .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+        .animate-rotate-float { animation: rotate-float 10s ease-in-out infinite; }
+        
+        .gradient-text {
+            background: linear-gradient(45deg, #f97316, #dc2626, #be185d, #a21caf);
+            background-size: 300% 300%;
+            animation: gradient-shift 4s ease infinite;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .gradient-text-light {
+            background: linear-gradient(45deg, #fbbf24, #f59e0b, #d97706, #b45309);
+            background-size: 300% 300%;
+            animation: gradient-shift 3s ease infinite;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .shadow-glow {
+            box-shadow: 0 0 20px rgba(251, 146, 60, 0.3), 0 0 40px rgba(251, 146, 60, 0.1);
+        }
+        
+        .shadow-3xl {
+            box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .border-3 {
+            border-width: 3px;
+        }
+        
+        .border-l-6 {
+            border-left-width: 6px;
+        }
+        
+        /* Tamil Font */
+        @font-face {
+            font-family: 'Tamil';
+            src: local('Noto Sans Tamil'), local('Latha'), local('Arial Unicode MS');
+        }
+        
+        body {
+            font-family: 'Tamil', 'Noto Sans Tamil', 'Latha', sans-serif;
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #f97316, #dc2626);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #ea580c, #b91c1c);
+        }
+        
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .sidebar-mobile {
+                width: 85%;
+                max-width: 320px;
+            }
+            
+            .mobile-text-sm {
+                font-size: 0.875rem;
+            }
+            
+            .mobile-text-base {
+                font-size: 1rem;
+            }
+            
+            .mobile-text-lg {
+                font-size: 1.125rem;
+            }
+            
+            .mobile-text-xl {
+                font-size: 1.25rem;
+            }
+            
+            .mobile-text-2xl {
+                font-size: 1.5rem;
+            }
+            
+            .mobile-p-2 {
+                padding: 0.5rem;
+            }
+            
+            .mobile-p-3 {
+                padding: 0.75rem;
+            }
+            
+            .mobile-p-4 {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="h-screen relative overflow-hidden">
+    <!-- Ultra Enhanced Background -->
+    <div class="absolute inset-0">
+        <!-- Multi-layer gradient background -->
+        <div class="absolute inset-0 bg-gradient-to-br from-orange-100 via-red-50 via-pink-50 to-amber-100"></div>
+        <div class="absolute inset-0 bg-gradient-to-tl from-yellow-50/50 via-transparent to-rose-50/50"></div>
+        <div class="absolute inset-0 bg-gradient-to-tr from-orange-50/30 via-transparent to-red-50/30"></div>
+    </div>
+    
+    <!-- Enhanced Background with Thiruvalluvar and Cultural Elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        
+        <!-- Thiruvalluvar Statue - Enhanced -->
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="relative opacity-8 transform scale-125">
+                
+                <!-- Statue Base - More detailed -->
+                <div class="w-96 h-24 bg-gradient-to-t from-gray-700 via-gray-500 to-gray-400 rounded-2xl mx-auto mb-6 shadow-2xl relative">
+                    <div class="absolute top-2 left-1/2 transform -translate-x-1/2 w-80 h-4 bg-gray-600 rounded-lg"></div>
+                    <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-88 h-4 bg-gray-800 rounded-lg"></div>
+                </div>
+                
+                <!-- Main Statue Body - Enhanced details -->
+                <div class="relative">
+                    <div class="w-80 h-[28rem] bg-gradient-to-b from-gray-400 via-gray-600 to-gray-800 mx-auto rounded-t-full relative shadow-3xl">
+                        
+                        <!-- Head - More detailed -->
+                        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-28 h-36 bg-gradient-to-b from-gray-300 to-gray-500 rounded-full shadow-inner"></div>
+                        
+                        <!-- Face - Enhanced features -->
+                        <div class="absolute top-8 left-1/2 transform -translate-x-1/2 w-24 h-28 bg-gradient-to-b from-gray-200 to-gray-400 rounded-full">
+                            <!-- Facial features -->
+                            <div class="absolute top-6 left-1/2 transform -translate-x-1/2 w-16 h-2 bg-gray-500 rounded-full"></div>
+                            <div class="absolute top-10 left-1/2 transform -translate-x-1/2 w-8 h-4 bg-gray-600 rounded-full"></div>
+                        </div>
+                        
+                        <!-- Traditional Clothing - More detailed draping -->
+                        <div class="absolute top-24 left-1/2 transform -translate-x-1/2 w-72 h-96 bg-gradient-to-b from-gray-400 via-gray-600 to-gray-800 rounded-t-3xl">
+                            <!-- Enhanced clothing folds -->
+                            <div class="absolute top-12 left-6 w-60 h-3 bg-gray-300 opacity-70 rounded-full shadow-inner"></div>
+                            <div class="absolute top-20 left-8 w-56 h-3 bg-gray-300 opacity-60 rounded-full shadow-inner"></div>
+                            <div class="absolute top-28 left-10 w-52 h-3 bg-gray-300 opacity-50 rounded-full shadow-inner"></div>
+                            <div class="absolute top-36 left-12 w-48 h-3 bg-gray-300 opacity-40 rounded-full shadow-inner"></div>
+                        </div>
+                        
+                        <!-- Arms - More defined -->
+                        <div class="absolute top-40 -left-12 w-20 h-48 bg-gradient-to-b from-gray-400 via-gray-600 to-gray-700 rounded-full transform -rotate-15 shadow-xl"></div>
+                        <div class="absolute top-40 -right-12 w-20 h-48 bg-gradient-to-b from-gray-400 via-gray-600 to-gray-700 rounded-full transform rotate-15 shadow-xl"></div>
+                        
+                        <!-- Hands -->
+                        <div class="absolute bottom-32 -left-16 w-12 h-16 bg-gradient-to-b from-gray-300 to-gray-500 rounded-full transform -rotate-12"></div>
+                        <div class="absolute bottom-32 -right-16 w-12 h-16 bg-gradient-to-b from-gray-300 to-gray-500 rounded-full transform rotate-12"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced Tamil Script Characters -->
+        <div class="absolute top-20 left-20 text-9xl text-orange-400/30 animate-float font-bold transform rotate-12">அ</div>
+        <div class="absolute top-40 right-28 text-7xl text-red-400/35 animate-bounce-slow font-bold transform -rotate-8">கா</div>
+        <div class="absolute top-96 left-40 text-8xl text-amber-400/25 animate-pulse-glow font-bold transform rotate-8">றம்</div>
+        <div class="absolute bottom-40 right-40 text-6xl text-pink-400/40 animate-float font-bold transform -rotate-15">தமிழ்</div>
+        <div class="absolute bottom-96 left-24 text-7xl text-orange-300/30 animate-bounce-slow font-bold transform rotate-12">வள்</div>
+        <div class="absolute top-72 right-24 text-6xl text-red-300/35 animate-pulse-glow font-bold transform -rotate-10">ளுவர்</div>
+        <div class="absolute bottom-64 left-96 text-5xl text-amber-300/40 animate-rotate-float font-bold transform rotate-6">நீதி</div>
+        
+        <!-- More Tamil words -->
+        <div class="absolute top-32 left-96 text-4xl text-orange-400/35 animate-float font-bold transform rotate-8">அறம்</div>
+        <div class="absolute bottom-80 right-20 text-5xl text-red-400/30 animate-bounce-slow font-bold transform -rotate-12">பொருள்</div>
+        <div class="absolute top-80 right-80 text-4xl text-pink-400/35 animate-pulse-glow font-bold transform rotate-10">இன்பம்</div>
+        
+        <!-- Ultra Enhanced Kolam Patterns -->
+        <!-- Large central pattern -->
+        <div class="absolute top-48 left-16 w-40 h-40 border-4 border-orange-300/50 opacity-60 rounded-full animate-spin-slow">
+            <div class="w-28 h-28 border-3 border-orange-400/60 opacity-80 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse-glow">
+                <div class="w-16 h-16 border-2 border-orange-500/70 opacity-70 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div class="w-8 h-8 bg-orange-400/50 opacity-60 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Multiple smaller patterns -->
+        <div class="absolute w-20 h-20 border-2 opacity-40 rounded-full animate-bounce-slow"
+             style="top: 20%; right: 10%; border-color: #fb923c; animation-delay: 0s;">
+            <div class="w-12 h-12 border-2 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                 style="border-color: #fed7aa;">
+                <div class="w-4 h-4 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                     style="background-color: #fb923c;"></div>
+            </div>
+        </div>
+        
+        <div class="absolute w-20 h-20 border-2 opacity-40 rounded-full animate-bounce-slow"
+             style="top: 35%; right: 22%; border-color: #dc2626; animation-delay: 0.5s;">
+            <div class="w-12 h-12 border-2 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                 style="border-color: #fecaca;">
+                <div class="w-4 h-4 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                     style="background-color: #dc2626;"></div>
+            </div>
+        </div>
+        
+        <div class="absolute w-20 h-20 border-2 opacity-40 rounded-full animate-bounce-slow"
+             style="top: 50%; right: 34%; border-color: #d97706; animation-delay: 1s;">
+            <div class="w-12 h-12 border-2 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                 style="border-color: #fed7aa;">
+                <div class="w-4 h-4 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                     style="background-color: #d97706;"></div>
+            </div>
+        </div>
+        
+        <div class="absolute w-20 h-20 border-2 opacity-40 rounded-full animate-bounce-slow"
+             style="top: 65%; right: 46%; border-color: #db2777; animation-delay: 1.5s;">
+            <div class="w-12 h-12 border-2 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                 style="border-color: #fbcfe8;">
+                <div class="w-4 h-4 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                     style="background-color: #db2777;"></div>
+            </div>
+        </div>
+        
+        <div class="absolute w-20 h-20 border-2 opacity-40 rounded-full animate-bounce-slow"
+             style="top: 80%; right: 58%; border-color: #c2410c; animation-delay: 2s;">
+            <div class="w-12 h-12 border-2 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                 style="border-color: #fed7aa;">
+                <div class="w-4 h-4 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                     style="background-color: #c2410c;"></div>
+            </div>
+        </div>
+        
+        <div class="absolute w-20 h-20 border-2 opacity-40 rounded-full animate-bounce-slow"
+             style="top: 95%; right: 70%; border-color: #be123c; animation-delay: 2.5s;">
+            <div class="w-12 h-12 border-2 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                 style="border-color: #fecdd3;">
+                <div class="w-4 h-4 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                     style="background-color: #be123c;"></div>
+            </div>
+        </div>
+        
+        <!-- Enhanced Cultural Elements -->
+        <div class="absolute top-24 left-80 text-6xl text-orange-300/40 animate-pulse-glow transform rotate-15">🏛️</div>
+        <div class="absolute bottom-80 left-16 text-5xl text-red-300/45 animate-float transform -rotate-8">🕉️</div>
+        <div class="absolute top-96 right-16 text-4xl text-amber-300/50 animate-bounce-slow transform rotate-12">🪔</div>
+        <div class="absolute bottom-24 right-80 text-5xl text-orange-300/35 animate-pulse-glow transform -rotate-15">📜</div>
+        <div class="absolute top-56 left-72 text-4xl text-pink-300/40 animate-float transform rotate-18">🌺</div>
+        <div class="absolute bottom-96 right-48 text-5xl text-red-300/30 animate-bounce-slow transform -rotate-10">⭐</div>
+        <div class="absolute top-80 left-8 text-3xl text-amber-300/45 animate-rotate-float transform rotate-8">🎭</div>
+        <div class="absolute bottom-48 left-80 text-4xl text-orange-300/35 animate-pulse-glow transform -rotate-12">🎪</div>
+        
+        <!-- Floating Particles - Enhanced -->
+        <div class="absolute w-2 h-2 rounded-full opacity-60 animate-float blur-sm"
+             style="top: 15%; left: 20%; background-color: #fb923c; animation-delay: 0s; animation-duration: 4s;"></div>
+        <div class="absolute w-2 h-2 rounded-full opacity-60 animate-float blur-sm"
+             style="top: 25%; left: 30%; background-color: #dc2626; animation-delay: 0.5s; animation-duration: 5s;"></div>
+        <div class="absolute w-2 h-2 rounded-full opacity-60 animate-float blur-sm"
+             style="top: 35%; left: 40%; background-color: #d97706; animation-delay: 1s; animation-duration: 6s;"></div>
+        <div class="absolute w-2 h-2 rounded-full opacity-60 animate-float blur-sm"
+             style="top: 45%; left: 50%; background-color: #db2777; animation-delay: 1.5s; animation-duration: 7s;"></div>
+        <div class="absolute w-2 h-2 rounded-full opacity-60 animate-float blur-sm"
+             style="top: 55%; left: 60%; background-color: #fb923c; animation-delay: 2s; animation-duration: 8s;"></div>
+        <div class="absolute w-2 h-2 rounded-full opacity-60 animate-float blur-sm"
+             style="top: 65%; left: 70%; background-color: #dc2626; animation-delay: 2.5s; animation-duration: 4s;"></div>
+        <div class="absolute w-2 h-2 rounded-full opacity-60 animate-float blur-sm"
+             style="top: 75%; left: 80%; background-color: #d97706; animation-delay: 3s; animation-duration: 5s;"></div>
+        <div class="absolute w-2 h-2 rounded-full opacity-60 animate-float blur-sm"
+             style="top: 85%; left: 90%; background-color: #db2777; animation-delay: 3.5s; animation-duration: 6s;"></div>
+        <div class="absolute w-2 h-2 rounded-full opacity-60 animate-float blur-sm"
+             style="top: 20%; left: 80%; background-color: #fb923c; animation-delay: 4s; animation-duration: 7s;"></div>
+        <div class="absolute w-2 h-2 rounded-full opacity-60 animate-float blur-sm"
+             style="top: 30%; left: 70%; background-color: #dc2626; animation-delay: 4.5s; animation-duration: 8s;"></div>
+        <div class="absolute w-2 h-2 rounded-full opacity-60 animate-float blur-sm"
+             style="top: 40%; left: 60%; background-color: #d97706; animation-delay: 5s; animation-duration: 4s;"></div>
+        <div class="absolute w-2 h-2 rounded-full opacity-60 animate-float blur-sm"
+             style="top: 50%; left: 50%; background-color: #db2777; animation-delay: 5.5s; animation-duration: 5s;"></div>
+    </div>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="fixed left-0 top-0 h-full w-96 backdrop-blur-xl bg-gradient-to-br from-amber-50/95 via-orange-50/95 to-red-50/95 border-r-4 border-gradient-to-b from-orange-400 to-red-500 shadow-2xl transform transition-all duration-700 z-50 -translate-x-full sidebar-mobile">
+        
+        <!-- Animated Tamil Background in Sidebar -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="text-9xl font-bold text-orange-600/10 absolute top-20 left-8 rotate-12 animate-float">அ</div>
+            <div class="text-7xl font-bold text-red-600/15 absolute top-48 right-12 -rotate-12 animate-bounce-slow">ம</div>
+            <div class="text-8xl font-bold text-amber-600/10 absolute bottom-64 left-12 rotate-6 animate-pulse-glow">த</div>
+            <div class="text-6xl font-bold text-orange-500/15 absolute bottom-32 right-16 -rotate-6 animate-rotate-float">ழ்</div>
+            
+            <!-- Glowing orbs -->
+            <div class="absolute top-32 right-8 w-24 h-24 bg-gradient-to-r from-orange-400/20 to-red-400/20 rounded-full animate-pulse-glow blur-sm"></div>
+            <div class="absolute bottom-48 left-8 w-20 h-20 bg-gradient-to-r from-amber-400/20 to-yellow-400/20 rounded-full animate-bounce-slow blur-sm"></div>
+        </div>
+
+        <div class="relative z-10 p-6 border-b-4 border-gradient-to-r from-orange-400 to-red-500 bg-gradient-to-br from-orange-500 via-red-500 to-pink-600 text-white">
+            <div class="flex justify-between items-center">
+                <div class="animate-slide-in">
+                    <h2 class="text-3xl font-bold flex items-center space-x-3 mb-2">
+                        <span class="animate-bounce-slow">🏛️</span>
+                        <span class="gradient-text-light">வணக்கம்</span>
+                    </h2>
+                    <p class="text-orange-100 text-base flex items-center space-x-2">
+                        <span class="animate-pulse">✨</span>
+                        <span>தமிழின் அழகிய உலகில் நடனமாடுங்கள்</span>
+                    </p>
+                </div>
+                <button onclick="toggleSidebar()" class="p-3 hover:bg-orange-600/50 rounded-full transition-all duration-300 transform hover:scale-110 hover:rotate-90">
+                    <i class="fas fa-times h-6 w-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="relative z-10 flex flex-col p-6 space-y-4 overflow-y-auto max-h-[calc(100vh-250px)]">
+            <button onclick="setActiveTab('chat')" class="group relative flex flex-col p-5 rounded-2xl transition-all duration-500 transform hover:scale-105 bg-white/70 backdrop-blur-sm hover:bg-gradient-to-r hover:from-orange-100 hover:to-red-100 text-orange-800 hover:shadow-lg">
+                <div class="flex items-center space-x-4 mb-2">
+                    <div class="p-3 rounded-xl transition-all duration-300 bg-orange-200 group-hover:bg-orange-300">
+                        <i class="fas fa-comment h-5 w-5 text-orange-700"></i>
+                    </div>
+                    <span class="font-bold text-base">💬 அரட்டை</span>
+                </div>
+                <p class="text-sm ml-14 text-orange-600">AI உடன் பேசுங்கள்</p>
+            </button>
+            
+            <button onclick="setActiveTab('thirukkural')" class="group relative flex flex-col p-5 rounded-2xl transition-all duration-500 transform hover:scale-105 bg-white/70 backdrop-blur-sm hover:bg-gradient-to-r hover:from-orange-100 hover:to-red-100 text-orange-800 hover:shadow-lg">
+                <div class="flex items-center space-x-4 mb-2">
+                    <div class="p-3 rounded-xl transition-all duration-300 bg-orange-200 group-hover:bg-orange-300">
+                        <i class="fas fa-book h-5 w-5 text-orange-700"></i>
+                    </div>
+                    <span class="font-bold text-base">📜 திருக்குறள்</span>
+                </div>
+                <p class="text-sm ml-14 text-orange-600">வள்ளுவன் அருளிய நீதிகள்</p>
+            </button>
+            
+            <button onclick="setActiveTab('stories')" class="group relative flex flex-col p-5 rounded-2xl transition-all duration-500 transform hover:scale-105 bg-white/70 backdrop-blur-sm hover:bg-gradient-to-r hover:from-orange-100 hover:to-red-100 text-orange-800 hover:shadow-lg">
+                <div class="flex items-center space-x-4 mb-2">
+                    <div class="p-3 rounded-xl transition-all duration-300 bg-orange-200 group-hover:bg-orange-300">
+                        <i class="fas fa-file-alt h-5 w-5 text-orange-700"></i>
+                    </div>
+                    <span class="font-bold text-base">📖 கதைகள்</span>
+                </div>
+                <p class="text-sm ml-14 text-orange-600">பாரம்பரிய கதைகள்</p>
+            </button>
+            
+            <button onclick="setActiveTab('translate')" class="group relative flex flex-col p-5 rounded-2xl transition-all duration-500 transform hover:scale-105 bg-white/70 backdrop-blur-sm hover:bg-gradient-to-r hover:from-orange-100 hover:to-red-100 text-orange-800 hover:shadow-lg">
+                <div class="flex items-center space-x-4 mb-2">
+                    <div class="p-3 rounded-xl transition-all duration-300 bg-orange-200 group-hover:bg-orange-300">
+                        <i class="fas fa-language h-5 w-5 text-orange-700"></i>
+                    </div>
+                    <span class="font-bold text-base">🔤 மொழிபெயர்ப்பு</span>
+                </div>
+                <p class="text-sm ml-14 text-orange-600">மொழிபெயர்ப்பு சேவை</p>
+            </button>
+        </div>
+
+        <div class="absolute bottom-6 left-6 right-6">
+            <button onclick="downloadChat()" class="w-full flex items-center justify-center space-x-3 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 text-white p-5 rounded-2xl hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-700 transition-all duration-500 shadow-xl hover:shadow-2xl transform hover:scale-105 group">
+                <i class="fas fa-download h-5 w-5 group-hover:animate-bounce"></i>
+                <span class="font-bold text-base">📥 சேமிக்க</span>
+                <i class="fas fa-sparkles h-4 w-4 group-hover:animate-spin"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Overlay for mobile -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-40 backdrop-blur-md hidden" onclick="toggleSidebar()"></div>
+
+    <!-- Main Content -->
+    <div class="relative z-10 flex flex-col h-full">
+        
+        <!-- Modern Minimalist Header -->
+        <header class="bg-white/95 backdrop-blur-xl border-b border-orange-200/50 shadow-lg relative">
+            
+            <!-- Subtle accent line -->
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 to-red-500"></div>
+            
+            <div class="px-4 py-3">
+                <div class="flex items-center justify-between max-w-full mx-auto">
+                    
+                    <!-- Left Section -->
+                    <div class="flex items-center space-x-3">
+                        <button onclick="toggleSidebar()" class="p-2 text-orange-600 hover:bg-orange-50 rounded-lg transition-all duration-200">
+                            <i class="fas fa-bars h-5 w-5"></i>
+                        </button>
+                        
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center shadow-md">
+                                <span class="text-white text-sm font-bold">வ</span>
+                            </div>
+                            <div>
+                                <h1 class="text-lg font-bold text-gray-800 flex items-center space-x-1">
+                                    <span>வணக்கம்</span>
+                                    <span class="text-orange-500">•</span>
+                                    <span class="text-orange-600 text-sm">Vanakkam</span>
+                                </h1>
+                                <p class="text-xs text-gray-500">தமிழ் AI உதவியாளர்</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Section -->
+                    <div class="flex items-center space-x-2">
+                        <button class="p-2 text-gray-600 hover:text-orange-600 hover:bg-orange-50 rounded-lg transition-all duration-200">
+                            <i class="fas fa-volume-up h-4 w-4"></i>
+                        </button>
+                        
+                        <div class="flex items-center space-x-1 bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-1 rounded-lg shadow-sm">
+                            <i class="fas fa-star h-3 w-3"></i>
+                            <span class="text-xs font-semibold">பிரீமியம்</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div class="px-4 pb-3">
+                <div class="flex items-center space-x-1 overflow-x-auto">
+                    <button onclick="setActiveTab('chat')" class="flex-shrink-0 flex items-center space-x-1 px-3 py-2 rounded-lg text-xs font-medium transition-all duration-200 bg-orange-100 text-orange-700 border border-orange-200">
+                        <span>💬</span>
+                        <span>அரட்டை</span>
+                    </button>
+                    
+                    <button onclick="setActiveTab('thirukkural')" class="flex-shrink-0 flex items-center space-x-1 px-3 py-2 rounded-lg text-xs font-medium transition-all duration-200 text-gray-600 hover:text-orange-600 hover:bg-orange-50">
+                        <span>📜</span>
+                        <span>திருக்குறள்</span>
+                    </button>
+                    
+                    <button onclick="setActiveTab('stories')" class="flex-shrink-0 flex items-center space-x-1 px-3 py-2 rounded-lg text-xs font-medium transition-all duration-200 text-gray-600 hover:text-orange-600 hover:bg-orange-50">
+                        <span>📖</span>
+                        <span>கதைகள்</span>
+                    </button>
+                    
+                    <button onclick="setActiveTab('translate')" class="flex-shrink-0 flex items-center space-x-1 px-3 py-2 rounded-lg text-xs font-medium transition-all duration-200 text-gray-600 hover:text-orange-600 hover:bg-orange-50">
+                        <span>🔤</span>
+                        <span>மொழிபெயர்ப்பு</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <main class="flex-1 flex relative">
+            <!-- Chat Tab -->
+            <div id="chatTab" class="flex flex-col h-full relative overflow-hidden w-full">
+                
+                <!-- Enhanced Floating Elements -->
+                <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                    <div class="absolute top-20 left-10 text-7xl text-orange-200/40 animate-float">🏛️</div>
+                    <div class="absolute top-64 right-20 text-5xl text-red-200/50 animate-bounce-slow">🎭</div>
+                    <div class="absolute bottom-80 left-20 text-6xl text-amber-200/45 animate-pulse-glow">🌺</div>
+                    <div class="absolute bottom-48 right-10 text-4xl text-orange-200/40 animate-rotate-float">📚</div>
+                    <div class="absolute top-96 left-64 text-5xl text-pink-200/35 animate-float">⭐</div>
+                    <div class="absolute bottom-96 right-32 text-3xl text-red-200/50 animate-bounce-slow">🪔</div>
+                    
+                    <!-- Floating particles -->
+                    <div class="absolute top-32 left-32 w-2 h-2 bg-orange-400/60 rounded-full animate-float blur-sm"></div>
+                    <div class="absolute top-80 right-80 w-3 h-3 bg-red-400/60 rounded-full animate-bounce-slow blur-sm"></div>
+                    <div class="absolute bottom-64 left-80 w-2 h-2 bg-amber-400/60 rounded-full animate-pulse-glow blur-sm"></div>
+                </div>
+
+                <!-- Chat Messages -->
+                <div class="flex-1 overflow-y-auto p-4 space-y-6 relative z-10">
+                    <div class="flex justify-start animate-slide-in">
+                        <div class="group max-w-md lg:max-w-lg px-6 py-4 rounded-3xl shadow-xl transition-all duration-500 hover:scale-105 relative overflow-hidden bg-gradient-to-br from-white via-orange-50 to-amber-50 border-3 border-orange-200 text-gray-800 shadow-orange-100/50 mr-4">
+                            
+                            <!-- Message background pattern -->
+                            <div class="absolute inset-0 opacity-10 pointer-events-none">
+                                <div class="text-6xl absolute top-2 right-2 opacity-20">🤖</div>
+                            </div>
+                            
+                            <div class="relative z-10 flex items-start space-x-3">
+                                <div class="flex-1">
+                                    <p class="text-base font-medium leading-relaxed mb-2">🙏 வணக்கம்! நான் உங்கள் தமிழ் AI உதவியாளர். தமிழ் மொழியின் அழகை சேர்ந்து கற்போம்! ✨🏛️</p>
+                                    <div class="flex items-center justify-between">
+                                        <p class="text-xs font-semibold text-orange-600">🕐 காலை 10:30</p>
+                                    </div>
+                                </div>
+                                <div class="p-2 rounded-xl bg-orange-200">
+                                    <div class="text-xl animate-pulse">🤖</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-end animate-slide-in">
+                        <div class="group max-w-md lg:max-w-lg px-6 py-4 rounded-3xl shadow-xl transition-all duration-500 hover:scale-105 relative overflow-hidden bg-gradient-to-br from-orange-500 via-red-500 to-pink-500 text-white shadow-orange-200/50 ml-4">
+                            
+                            <!-- Message background pattern -->
+                            <div class="absolute inset-0 opacity-10 pointer-events-none">
+                                <div class="text-6xl absolute top-2 right-2 opacity-30">👤</div>
+                            </div>
+                            
+                            <div class="relative z-10 flex items-start space-x-3">
+                                <div class="flex-1">
+                                    <p class="text-base font-medium leading-relaxed mb-2">வணக்கம்! தமிழ் மொழி பற்றி அதிகம் அறிய விரும்புகிறேன்.</p>
+                                    <div class="flex items-center justify-between">
+                                        <p class="text-xs font-semibold text-orange-100">🕐 காலை 10:31</p>
+                                    </div>
+                                </div>
+                                <div class="p-2 rounded-xl bg-white/20">
+                                    <div class="text-xl">👤</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-start animate-slide-in">
+                        <div class="group max-w-md lg:max-w-lg px-6 py-4 rounded-3xl shadow-xl transition-all duration-500 hover:scale-105 relative overflow-hidden bg-gradient-to-br from-white via-orange-50 to-amber-50 border-3 border-orange-200 text-gray-800 shadow-orange-100/50 mr-4">
+                            
+                            <!-- Message background pattern -->
+                            <div class="absolute inset-0 opacity-10 pointer-events-none">
+                                <div class="text-6xl absolute top-2 right-2 opacity-20">🤖</div>
+                            </div>
+                            
+                            <div class="relative z-10 flex items-start space-x-3">
+                                <div class="flex-1">
+                                    <p class="text-base font-medium leading-relaxed mb-2">🌟 அருமையான கேள்வி! தமிழின் செழுமையான வரலாறு பற்றி பேசலாம்! 🏛️✨</p>
+                                    <div class="flex items-center justify-between">
+                                        <p class="text-xs font-semibold text-orange-600">🕐 காலை 10:32</p>
+                                    </div>
+                                </div>
+                                <div class="p-2 rounded-xl bg-orange-200">
+                                    <div class="text-xl animate-pulse">🤖</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compact Enhanced Input Area -->
+                <div class="p-3 bg-white/95 backdrop-blur-xl border-t border-orange-200/50 relative z-10">
+                    <div class="flex space-x-2 items-end max-w-full mx-auto">
+                        
+                        <!-- File Upload Button -->
+                        <button class="p-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 group" title="கோப்பு பதிவேற்று">
+                            <i class="fas fa-upload h-4 w-4 group-hover:animate-bounce"></i>
+                        </button>
+
+                        <!-- Voice Recording Button -->
+                        <button class="p-2 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 group bg-gradient-to-r from-green-500 to-emerald-500 text-white hover:from-green-600 hover:to-emerald-600" title="ஒலி பதிவு செய்">
+                            <i class="fas fa-microphone h-4 w-4 group-hover:animate-pulse"></i>
+                        </button>
+
+                        <!-- Input Field -->
+                        <div class="flex-1 relative">
+                            <input type="text" placeholder="உங்கள் செய்தியை தமிழில் தட்டச்சு செய்யவும்..." class="w-full p-3 pr-10 border-2 border-orange-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-300 focus:border-orange-400 transition-all duration-300 text-sm placeholder-gray-400 bg-white shadow-sm">
+                            <div class="absolute right-3 top-1/2 transform -translate-y-1/2 text-orange-400">
+                                <i class="fas fa-sparkles h-4 w-4"></i>
+                            </div>
+                        </div>
+
+                        <!-- Send Button -->
+                        <button class="p-2 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-lg hover:from-orange-600 hover:to-red-600 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 group" title="அனுப்பு">
+                            <i class="fas fa-paper-plane h-4 w-4 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thirukkural Tab -->
+            <div id="thirukkuralTab" class="p-4 overflow-y-auto relative min-h-screen w-full hidden">
+                
+                <!-- Background Elements -->
+                <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                    <div class="absolute top-20 right-20 text-9xl text-amber-200/20 animate-spin-slow">🕉️</div>
+                    <div class="absolute bottom-40 left-20 text-8xl text-orange-200/25 animate-pulse-glow">📜</div>
+                    <div class="absolute top-96 left-1/2 text-6xl text-red-200/30 animate-bounce-slow">⭐</div>
+                </div>
+
+                <div class="relative z-10 max-w-full mx-auto">
+                    <div class="text-center mb-8 animate-slide-in">
+                        <div class="inline-block p-4 bg-gradient-to-r from-amber-400 to-orange-500 rounded-3xl shadow-2xl mb-6">
+                            <h2 class="text-4xl font-bold text-white flex items-center space-x-4">
+                                <span class="animate-bounce-slow">📜</span>
+                                <span>திருக்குறள்</span>
+                                <span class="animate-pulse">🌟</span>
+                            </h2>
+                        </div>
+                        <p class="text-xl text-orange-700 mb-3 font-semibold">💎 திருவள்ளுவர் அருளிய அற நூல் 💎</p>
+                        <div class="w-32 h-2 bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 mx-auto rounded-full shadow-lg"></div>
+                        <p class="text-base text-orange-600 mt-3 font-medium">உலகின் சிறந்த நீதி நூலை அனுபவிக்கலாம் ✨</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 gap-6">
+                        <div class="group bg-gradient-to-br from-white via-orange-50 to-amber-50 p-6 rounded-3xl border-3 border-orange-200 shadow-2xl hover:shadow-3xl transition-all duration-700 transform hover:scale-105 relative overflow-hidden">
+                            
+                            <!-- Card background pattern -->
+                            <div class="absolute inset-0 opacity-5 pointer-events-none">
+                                <div class="text-8xl absolute -top-4 -right-4 text-orange-400 rotate-12">📜</div>
+                            </div>
+                            
+                            <div class="relative z-10">
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-xl text-lg font-bold shadow-lg transform hover:scale-110 transition-all duration-300">
+                                            குறள் 1
+                                        </div>
+                                        <div class="bg-gradient-to-r from-amber-400 to-orange-400 text-white px-3 py-1 rounded-lg text-xs font-bold shadow-md">
+                                            📚 கடவுள் வாழ்த்து
+                                        </div>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="p-3 bg-gradient-to-r from-green-400 to-emerald-500 text-white rounded-xl hover:from-green-500 hover:to-emerald-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110 group">
+                                            <i class="fas fa-volume-up h-5 w-5 group-hover:animate-pulse"></i>
+                                        </button>
+                                        <button class="p-3 bg-gradient-to-r from-blue-400 to-cyan-500 text-white rounded-xl hover:from-blue-500 hover:to-cyan-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110">
+                                            <i class="fas fa-book-open h-5 w-5"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-gradient-to-r from-orange-100 via-amber-100 to-yellow-100 p-6 rounded-3xl mb-6 border-l-6 border-orange-400 shadow-inner">
+                                    <p class="text-xl text-gray-800 font-bold leading-relaxed text-center">அகர முதல எழுத்தெல்லாம் ஆதி பகவன் முதற்றே உலகு</p>
+                                </div>
+                                
+                                <div class="bg-gradient-to-r from-blue-50 via-cyan-50 to-teal-50 p-6 rounded-3xl border-l-6 border-blue-400 shadow-inner mb-4">
+                                    <p class="text-base text-gray-700 leading-relaxed font-medium">அ என்னும் எழுத்து எல்லா எழுத்துக்களுக்கும் முதல்வன் போல, கடவுள் உலகத்திற்கு முதல்வன்.</p>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <div class="bg-gradient-to-r from-purple-400 to-pink-400 text-white px-3 py-1 rounded-lg text-xs font-bold shadow-md">
+                                        🎭 அறத்துப்பால்
+                                    </div>
+                                    <div class="flex space-x-1">
+                                        <i class="fas fa-star h-5 w-5 text-amber-400 animate-pulse" style="animation-delay: 0s;"></i>
+                                        <i class="fas fa-star h-5 w-5 text-amber-400 animate-pulse" style="animation-delay: 0.1s;"></i>
+                                        <i class="fas fa-star h-5 w-5 text-amber-400 animate-pulse" style="animation-delay: 0.2s;"></i>
+                                        <i class="fas fa-star h-5 w-5 text-amber-400 animate-pulse" style="animation-delay: 0.3s;"></i>
+                                        <i class="fas fa-star h-5 w-5 text-amber-400 animate-pulse" style="animation-delay: 0.4s;"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="group bg-gradient-to-br from-white via-orange-50 to-amber-50 p-6 rounded-3xl border-3 border-orange-200 shadow-2xl hover:shadow-3xl transition-all duration-700 transform hover:scale-105 relative overflow-hidden">
+                            
+                            <!-- Card background pattern -->
+                            <div class="absolute inset-0 opacity-5 pointer-events-none">
+                                <div class="text-8xl absolute -top-4 -right-4 text-orange-400 rotate-12">📜</div>
+                            </div>
+                            
+                            <div class="relative z-10">
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-xl text-lg font-bold shadow-lg transform hover:scale-110 transition-all duration-300">
+                                            குறள் 2
+                                        </div>
+                                        <div class="bg-gradient-to-r from-amber-400 to-orange-400 text-white px-3 py-1 rounded-lg text-xs font-bold shadow-md">
+                                            📚 கடவுள் வாழ்த்து
+                                        </div>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="p-3 bg-gradient-to-r from-green-400 to-emerald-500 text-white rounded-xl hover:from-green-500 hover:to-emerald-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110 group">
+                                            <i class="fas fa-volume-up h-5 w-5 group-hover:animate-pulse"></i>
+                                        </button>
+                                        <button class="p-3 bg-gradient-to-r from-blue-400 to-cyan-500 text-white rounded-xl hover:from-blue-500 hover:to-cyan-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110">
+                                            <i class="fas fa-book-open h-5 w-5"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-gradient-to-r from-orange-100 via-amber-100 to-yellow-100 p-6 rounded-3xl mb-6 border-l-6 border-orange-400 shadow-inner">
+                                    <p class="text-xl text-gray-800 font-bold leading-relaxed text-center">கற்றதனால் ஆய பயனென்கொல் வாலறிவன் நற்றாள் தொழாஅர் எனின்</p>
+                                </div>
+                                
+                                <div class="bg-gradient-to-r from-blue-50 via-cyan-50 to-teal-50 p-6 rounded-3xl border-l-6 border-blue-400 shadow-inner mb-4">
+                                    <p class="text-base text-gray-700 leading-relaxed font-medium">கற்றதனால் என்ன பயன், அறிவாளி கடவுளின் திருவடிகளை வணங்காவிட்டால்?</p>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <div class="bg-gradient-to-r from-purple-400 to-pink-400 text-white px-3 py-1 rounded-lg text-xs font-bold shadow-md">
+                                        🎭 அறத்துப்பால்
+                                    </div>
+                                    <div class="flex space-x-1">
+                                        <i class="fas fa-star h-5 w-5 text-amber-400 animate-pulse" style="animation-delay: 0s;"></i>
+                                        <i class="fas fa-star h-5 w-5 text-amber-400 animate-pulse" style="animation-delay: 0.1s;"></i>
+                                        <i class="fas fa-star h-5 w-5 text-amber-400 animate-pulse" style="animation-delay: 0.2s;"></i>
+                                        <i class="fas fa-star h-5 w-5 text-amber-400 animate-pulse" style="animation-delay: 0.3s;"></i>
+                                        <i class="fas fa-star h-5 w-5 text-amber-400 animate-pulse" style="animation-delay: 0.4s;"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stories Tab -->
+            <div id="storiesTab" class="p-4 overflow-y-auto relative min-h-screen w-full hidden">
+                
+                <!-- Background Elements -->
+                <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                    <div class="absolute top-32 left-32 text-8xl text-purple-200/20 animate-bounce-slow">🎭</div>
+                    <div class="absolute bottom-48 right-32 text-7xl text-blue-200/25 animate-float">📚</div>
+                    <div class="absolute top-80 right-80 text-6xl text-pink-200/30 animate-pulse-glow">⭐</div>
+                </div>
+
+                <div class="relative z-10 max-w-full mx-auto">
+                    <div class="text-center mb-8 animate-slide-in">
+                        <div class="inline-block p-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl shadow-2xl mb-6">
+                            <h2 class="text-4xl font-bold text-white flex items-center space-x-4">
+                                <span class="animate-bounce-slow">📖</span>
+                                <span>தமிழ் கதைகள்</span>
+                                <span class="animate-pulse">✨</span>
+                            </h2>
+                        </div>
+                        <p class="text-xl text-purple-700 mb-3 font-semibold">🎪 பாரம்பரிய கதைகளின் அழகிய தொகுப்பு 🎪</p>
+                        <div class="w-32 h-2 bg-gradient-to-r from-purple-400 via-pink-500 to-rose-500 mx-auto rounded-full shadow-lg"></div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 gap-6">
+                        <div class="group bg-gradient-to-br from-white via-purple-50 to-pink-50 p-6 rounded-3xl border-3 border-purple-200 shadow-2xl hover:shadow-3xl transition-all duration-700 transform hover:scale-105 cursor-pointer relative overflow-hidden">
+                            
+                            <!-- Card glow effect -->
+                            <div class="absolute inset-0 opacity-0 group-hover:opacity-20 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-3xl transition-all duration-500"></div>
+                            
+                            <div class="relative z-10">
+                                <div class="text-center mb-6">
+                                    <div class="text-7xl mb-4 animate-bounce-slow group-hover:animate-spin transition-all duration-500">😄</div>
+                                    <h3 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 mb-3 group-hover:scale-110 transition-all duration-300">
+                                        🎭 தெனாலி ராமன் பெருமை
+                                    </h3>
+                                    <div class="w-20 h-1 bg-gradient-to-r from-purple-400 to-pink-400 mx-auto rounded-full mb-4 group-hover:w-24 transition-all duration-300"></div>
+                                </div>
+                                
+                                <p class="text-gray-700 mb-6 text-center leading-relaxed font-medium text-base">புத்திக்கூர்மையும் நகைச்சுவையும் நிறைந்த அற்புதக் கதைகள்</p>
+                                
+                                <div class="flex flex-col space-y-3">
+                                    <button class="flex items-center justify-center space-x-3 bg-gradient-to-r from-blue-400 to-cyan-500 text-white px-5 py-3 rounded-2xl hover:shadow-xl transition-all duration-300 transform hover:scale-105 group">
+                                        <i class="fas fa-file-alt h-5 w-5 group-hover:animate-bounce"></i>
+                                        <span class="font-bold text-base">📖 படிக்க</span>
+                                        <i class="fas fa-sparkles h-4 w-4 group-hover:animate-spin"></i>
+                                    </button>
+                                    <button class="flex items-center justify-center space-x-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-5 py-3 rounded-2xl hover:from-green-600 hover:to-emerald-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 group">
+                                        <i class="fas fa-volume-up h-5 w-5 group-hover:animate-pulse"></i>
+                                        <span class="font-bold text-base">🎵 கேள்</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="group bg-gradient-to-br from-white via-purple-50 to-pink-50 p-6 rounded-3xl border-3 border-purple-200 shadow-2xl hover:shadow-3xl transition-all duration-700 transform hover:scale-105 cursor-pointer relative overflow-hidden">
+                            
+                            <!-- Card glow effect -->
+                            <div class="absolute inset-0 opacity-0 group-hover:opacity-20 bg-gradient-to-r from-green-400 to-emerald-500 rounded-3xl transition-all duration-500"></div>
+                            
+                            <div class="relative z-10">
+                                <div class="text-center mb-6">
+                                    <div class="text-7xl mb-4 animate-bounce-slow group-hover:animate-spin transition-all duration-500">🐅</div>
+                                    <h3 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 mb-3 group-hover:scale-110 transition-all duration-300">
+                                        🦁 பஞ்சதந்திர மணிகள்
+                                    </h3>
+                                    <div class="w-20 h-1 bg-gradient-to-r from-purple-400 to-pink-400 mx-auto rounded-full mb-4 group-hover:w-24 transition-all duration-300"></div>
+                                </div>
+                                
+                                <p class="text-gray-700 mb-6 text-center leading-relaxed font-medium text-base">விலங்குகளின் வாயிலாக கிடைக்கும் வாழ்க்கை நீதிகள்</p>
+                                
+                                <div class="flex flex-col space-y-3">
+                                    <button class="flex items-center justify-center space-x-3 bg-gradient-to-r from-green-400 to-emerald-500 text-white px-5 py-3 rounded-2xl hover:shadow-xl transition-all duration-300 transform hover:scale-105 group">
+                                        <i class="fas fa-file-alt h-5 w-5 group-hover:animate-bounce"></i>
+                                        <span class="font-bold text-base">📖 படிக்க</span>
+                                        <i class="fas fa-sparkles h-4 w-4 group-hover:animate-spin"></i>
+                                    </button>
+                                    <button class="flex items-center justify-center space-x-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-5 py-3 rounded-2xl hover:from-green-600 hover:to-emerald-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 group">
+                                        <i class="fas fa-volume-up h-5 w-5 group-hover:animate-pulse"></i>
+                                        <span class="font-bold text-base">🎵 கேள்</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="group bg-gradient-to-br from-white via-purple-50 to-pink-50 p-6 rounded-3xl border-3 border-purple-200 shadow-2xl hover:shadow-3xl transition-all duration-700 transform hover:scale-105 cursor-pointer relative overflow-hidden">
+                            
+                            <!-- Card glow effect -->
+                            <div class="absolute inset-0 opacity-0 group-hover:opacity-20 bg-gradient-to-r from-purple-400 to-pink-500 rounded-3xl transition-all duration-500"></div>
+                            
+                            <div class="relative z-10">
+                                <div class="text-center mb-6">
+                                    <div class="text-7xl mb-4 animate-bounce-slow group-hover:animate-spin transition-all duration-500">🧠</div>
+                                    <h3 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 mb-3 group-hover:scale-110 transition-all duration-300">
+                                        👑 அக்பர் பீர்பால் அறிவு
+                                    </h3>
+                                    <div class="w-20 h-1 bg-gradient-to-r from-purple-400 to-pink-400 mx-auto rounded-full mb-4 group-hover:w-24 transition-all duration-300"></div>
+                                </div>
+                                
+                                <p class="text-gray-700 mb-6 text-center leading-relaxed font-medium text-base">ஞானமும் பகுத்தறிவும் கலந்த மனோரஞ்சகக் கதைகள்</p>
+                                
+                                <div class="flex flex-col space-y-3">
+                                    <button class="flex items-center justify-center space-x-3 bg-gradient-to-r from-purple-400 to-pink-500 text-white px-5 py-3 rounded-2xl hover:shadow-xl transition-all duration-300 transform hover:scale-105 group">
+                                        <i class="fas fa-file-alt h-5 w-5 group-hover:animate-bounce"></i>
+                                        <span class="font-bold text-base">📖 படிக்க</span>
+                                        <i class="fas fa-sparkles h-4 w-4 group-hover:animate-spin"></i>
+                                    </button>
+                                    <button class="flex items-center justify-center space-x-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-5 py-3 rounded-2xl hover:from-green-600 hover:to-emerald-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 group">
+                                        <i class="fas fa-volume-up h-5 w-5 group-hover:animate-pulse"></i>
+                                        <span class="font-bold text-base">🎵 கேள்</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Translate Tab -->
+            <div id="translateTab" class="p-4 overflow-y-auto relative min-h-screen w-full hidden">
+                
+                <!-- Background Elements -->
+                <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                    <div class="absolute top-20 right-20 text-8xl text-cyan-200/20 animate-spin-slow">🔄</div>
+                    <div class="absolute bottom-32 left-20 text-7xl text-teal-200/25 animate-pulse-glow">🌐</div>
+                    <div class="absolute top-80 left-1/2 text-6xl text-blue-200/30 animate-bounce-slow">💬</div>
+                </div>
+
+                <div class="relative z-10 max-w-full mx-auto">
+                    <div class="text-center mb-8 animate-slide-in">
+                        <div class="inline-block p-4 bg-gradient-to-r from-cyan-500 to-teal-500 rounded-3xl shadow-2xl mb-6">
+                            <h2 class="text-4xl font-bold text-white flex items-center space-x-4">
+                                <span class="animate-bounce-slow">🔤</span>
+                                <span>மொழிபெயர்ப்பு</span>
+                                <span class="animate-pulse">🌍</span>
+                            </h2>
+                        </div>
+                        <p class="text-xl text-cyan-700 mb-3 font-semibold">🌉 உலக மொழிகளின் பாலம் 🌉</p>
+                        <div class="w-32 h-2 bg-gradient-to-r from-cyan-400 via-teal-500 to-blue-500 mx-auto rounded-full shadow-lg"></div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-white via-cyan-50 to-teal-50 p-6 rounded-3xl border-3 border-cyan-200 shadow-2xl relative overflow-hidden">
+                        
+                        <!-- Card background pattern -->
+                        <div class="absolute inset-0 opacity-5 pointer-events-none">
+                            <div class="text-9xl absolute -top-8 -right-8 text-cyan-400 rotate-12">🌐</div>
+                        </div>
+                        
+                        <div class="relative z-10">
+                            <div class="mb-6">
+                                <label class="flex items-center space-x-3 text-xl font-bold text-cyan-800 mb-4">
+                                    <i class="fas fa-language h-6 w-6"></i>
+                                    <span>📝 உங்கள் உரையை இங்கே உள்ளிடுங்கள்</span>
+                                    <i class="fas fa-sparkles h-5 w-5 animate-spin"></i>
+                                </label>
+                                <textarea class="w-full p-4 border-3 border-cyan-300 rounded-3xl focus:outline-none focus:ring-4 focus:ring-cyan-300/50 focus:border-cyan-500 transition-all duration-500 text-base placeholder-cyan-400 bg-gradient-to-r from-white to-cyan-50 shadow-inner resize-none backdrop-blur-sm" rows="6" placeholder="🌟 மொழிபெயர்க்க வேண்டிய உரையை இங்கே உள்ளிடுங்கள்..."></textarea>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 gap-4 mb-6">
+                                <button class="flex items-center justify-center space-x-3 bg-gradient-to-r from-orange-500 to-red-500 text-white p-5 rounded-3xl hover:from-orange-600 hover:to-red-600 transition-all duration-500 shadow-xl hover:shadow-2xl transform hover:scale-105 group">
+                                    <span class="text-3xl animate-bounce-slow">🇹🇦</span>
+                                    <span class="font-bold text-lg">தமிழுக்கு மொழிபெயர்</span>
+                                    <i class="fas fa-globe h-6 w-6 group-hover:animate-spin"></i>
+                                </button>
+                                <button class="flex items-center justify-center space-x-3 border-3 border-cyan-500 text-cyan-600 p-5 rounded-3xl hover:bg-gradient-to-r hover:from-cyan-500 hover:to-teal-500 hover:text-white transition-all duration-500 shadow-xl hover:shadow-2xl transform hover:scale-105 group">
+                                    <span class="text-3xl animate-bounce-slow">🇬🇧</span>
+                                    <span class="font-bold text-lg">ஆங்கிலத்திற்கு மொழிபெயர்</span>
+                                    <i class="fas fa-bolt h-6 w-6 group-hover:animate-bounce"></i>
+                                </button>
+                            </div>
+
+                            <div class="mb-6">
+                                <label class="flex items-center space-x-3 text-xl font-bold text-cyan-800 mb-4">
+                                    <i class="fas fa-sparkles h-6 w-6 animate-pulse"></i>
+                                    <span>✨ மொழிபெயர்ப்பு முடிவு</span>
+                                    <i class="fas fa-crown h-5 w-5 animate-bounce-slow"></i>
+                                </label>
+                                <div class="p-6 bg-gradient-to-r from-cyan-100 via-teal-100 to-blue-100 border-3 border-cyan-300 rounded-3xl min-h-[150px] shadow-inner relative overflow-hidden">
+                                    <div class="absolute inset-0 bg-gradient-to-r from-cyan-200/20 to-teal-200/20 animate-pulse-glow"></div>
+                                    <div class="relative z-10 flex items-center justify-center h-full">
+                                        <p class="text-gray-600 italic text-xl text-center flex items-center space-x-3">
+                                            <span class="animate-bounce-slow">🔮</span>
+                                            <span>மொழிபெயர்ப்பு இங்கே அழகாக தோன்றும்...</span>
+                                            <span class="animate-pulse">✨</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="w-full flex items-center justify-center space-x-3 bg-gradient-to-r from-emerald-500 via-green-500 to-teal-600 text-white p-5 rounded-3xl hover:from-emerald-600 hover:via-green-600 hover:to-teal-700 transition-all duration-500 shadow-xl hover:shadow-2xl transform hover:scale-105 group">
+                                <i class="fas fa-download h-6 w-6 group-hover:animate-bounce"></i>
+                                <span class="font-bold text-lg">💾 சேமிக்க</span>
+                                <i class="fas fa-heart h-5 w-5 group-hover:animate-pulse text-red-300"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        function setActiveTab(tabName) {
+            // Hide all tabs
+            document.getElementById('chatTab').classList.add('hidden');
+            document.getElementById('thirukkuralTab').classList.add('hidden');
+            document.getElementById('storiesTab').classList.add('hidden');
+            document.getElementById('translateTab').classList.add('hidden');
+            
+            // Show selected tab
+            document.getElementById(tabName + 'Tab').classList.remove('hidden');
+            
+            // Close sidebar on mobile
+            if (window.innerWidth < 1024) {
+                toggleSidebar();
+            }
+        }
+        
+        // Sidebar toggle functionality
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+        
+        // Download chat functionality
+        function downloadChat() {
+            alert('அரட்டை பதிவிறக்க செயல்பாடு இங்கே செயல்படுத்தப்படும்.');
+        }
+        
+        // Initialize with chat tab visible
+        document.addEventListener('DOMContentLoaded', function() {
+            setActiveTab('chat');
+        });
+    </script>
+</body>
+</html>
