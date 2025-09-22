@@ -399,38 +399,78 @@
     <script>
         // Global variables
         let isRecording = false;
-        
-        // Voice recording toggle
-        function toggleVoiceRecording() {
-            const voiceBtn = document.getElementById('voiceBtn');
-            const recordingIndicator = document.getElementById('recordingIndicator');
-            
-            isRecording = !isRecording;
-            
-            if (isRecording) {
+        let recognition;
+
+        // Check for browser support for SpeechRecognition
+        if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.lang = 'ta-IN'; // Set language to Tamil
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            recognition.onstart = function() {
+                isRecording = true;
+                const voiceBtn = document.getElementById('voiceBtn');
+                const recordingIndicator = document.getElementById('recordingIndicator');
                 voiceBtn.classList.remove('bg-gradient-to-r', 'from-green-500', 'to-emerald-500');
                 voiceBtn.classList.add('bg-gradient-to-r', 'from-red-500', 'to-pink-500');
                 voiceBtn.innerHTML = '<i class="fas fa-microphone-slash h-4 w-4"></i>';
                 recordingIndicator.classList.remove('hidden');
-                
-                // Simulate voice recording
-                setTimeout(() => {
-                    if (isRecording) {
-                        isRecording = false;
-                        voiceBtn.classList.remove('bg-gradient-to-r', 'from-red-500', 'to-pink-500');
-                        voiceBtn.classList.add('bg-gradient-to-r', 'from-green-500', 'to-emerald-500');
-                        voiceBtn.innerHTML = '<i class="fas fa-microphone h-4 w-4"></i>';
-                        recordingIndicator.classList.add('hidden');
-                        
-                        // Add voice message
-                        addMessage('🎤 [குரல் செய்தி]: வணக்கம், தமிழ் கற்பதில் மிகுந்த ஆர்வம் கொண்டுள்ளேன்! 🎵🌟', 'user');
-                    }
-                }, 3000);
-            } else {
+            };
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById('messageInput').value = transcript;
+                sendMessage();
+            };
+
+            recognition.onerror = function(event) {
+                console.error('Speech recognition error:', event.error);
+                let errorMessage = 'குரல் அறிதலில் பிழை: ';
+                if (event.error === 'no-speech') {
+                    errorMessage += 'பேசவில்லை.';
+                } else if (event.error === 'audio-capture') {
+                    errorMessage += 'மைக்ரோஃபோன் கண்டறியப்படவில்லை.';
+                } else if (event.error === 'not-allowed') {
+                    errorMessage += 'மைக்ரோஃபோன் அணுகல் மறுக்கப்பட்டது.';
+                } else {
+                    errorMessage += event.error;
+                }
+                addMessage(errorMessage, 'bot');
+            };
+
+            recognition.onend = function() {
+                isRecording = false;
+                const voiceBtn = document.getElementById('voiceBtn');
+                const recordingIndicator = document.getElementById('recordingIndicator');
                 voiceBtn.classList.remove('bg-gradient-to-r', 'from-red-500', 'to-pink-500');
                 voiceBtn.classList.add('bg-gradient-to-r', 'from-green-500', 'to-emerald-500');
                 voiceBtn.innerHTML = '<i class="fas fa-microphone h-4 w-4"></i>';
                 recordingIndicator.classList.add('hidden');
+            };
+        } else {
+            // Handle browsers that don't support SpeechRecognition
+            const voiceBtn = document.getElementById('voiceBtn');
+            voiceBtn.disabled = true;
+            voiceBtn.title = "உங்கள் உலாவியில் குரல் அறிதல் ஆதரிக்கப்படவில்லை.";
+            voiceBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+        
+        // Voice recording toggle
+        function toggleVoiceRecording() {
+            if (!recognition) return;
+
+            if (isRecording) {
+                recognition.stop();
+            } else {
+                try {
+                    recognition.start();
+                } catch (e) {
+                    console.error("Could not start recognition:", e);
+                    addMessage("குரல் அறிதலைத் தொடங்க முடியவில்லை. பக்கம் புதுப்பிக்கப்பட்டதா எனச் சரிபார்க்கவும்.", "bot");
+                }
             }
         }
         
@@ -515,6 +555,9 @@
             const isUser = sender === 'user';
             const time = new Date().toLocaleTimeString('ta-IN', { hour: '2-digit', minute: '2-digit' });
             
+            // Sanitize text for use in a JavaScript string literal within the HTML
+            const sanitizedText = text.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
             messageDiv.innerHTML = `
                 <div class="group max-w-[85%] md:max-w-lg px-4 py-3 rounded-2xl shadow-lg transition-all duration-500 hover:scale-[1.02] relative overflow-hidden ${isUser ? 'bg-gradient-to-br from-orange-500 via-red-500 to-pink-500 text-white ml-4' : 'bg-gradient-to-br from-white via-orange-50 to-amber-50 border-2 border-orange-200 text-gray-800 mr-4'} message-appear">
                     <div class="absolute inset-0 opacity-5 pointer-events-none">
@@ -526,6 +569,7 @@
                             <p class="text-base font-medium leading-relaxed mb-1">${text}</p>
                             <div class="flex items-center justify-between">
                                 <p class="text-xs font-semibold ${isUser ? 'text-orange-100' : 'text-orange-600'}">🕐 ${time}</p>
+                                ${!isUser ? `<button onclick="speakText('${sanitizedText}')" class="text-orange-600 hover:text-orange-800 transition-colors"><i class="fas fa-volume-up"></i></button>` : ''}
                             </div>
                         </div>
                         <div class="p-2 rounded-lg ${isUser ? 'bg-white/20' : 'bg-orange-200'}">
@@ -537,6 +581,37 @@
             
             chatMessages.appendChild(messageDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Speak text function
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Stop any previous speech
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ta-IN';
+                utterance.rate = 0.9;
+
+                // The getVoices() method is asynchronous, so we might need to wait for the voices to load
+                let voices = window.speechSynthesis.getVoices();
+                if (voices.length === 0) {
+                    window.speechSynthesis.onvoiceschanged = function() {
+                        voices = window.speechSynthesis.getVoices();
+                        const tamilVoice = voices.find(voice => voice.lang === 'ta-IN');
+                        if (tamilVoice) {
+                            utterance.voice = tamilVoice;
+                        }
+                        window.speechSynthesis.speak(utterance);
+                    };
+                } else {
+                    const tamilVoice = voices.find(voice => voice.lang === 'ta-IN');
+                    if (tamilVoice) {
+                        utterance.voice = tamilVoice;
+                    }
+                    window.speechSynthesis.speak(utterance);
+                }
+            } else {
+                addMessage('உங்கள் உலாவியில் பேச்சு தொகுப்பு ஆதரிக்கப்படவில்லை.', 'bot');
+            }
         }
         
         // Show typing indicator
